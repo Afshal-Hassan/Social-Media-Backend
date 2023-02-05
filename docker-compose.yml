@@ -1,0 +1,36 @@
+version: '3.2'
+
+services:
+  dbservice:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: chatapp
+      MYSQL_ROOT_PASSWORD: afshal123.
+      MYSQL_HOST: "node-js-aws-rds.ciqmjhvfx2pw.ap-northeast-1.rds.amazonaws.com"
+      MYSQL_PORT: 3306
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - bootapp
+
+  appservice:
+    image: afshalhassan/social-media-backend:0.0.1.SNAPSHOT
+    environment:
+      SOCIAL_MEDIA_BE_PORT: "8081"
+      SOCIAL_MEDIA_DB_HOST: "node-js-aws-rds.ciqmjhvfx2pw.ap-northeast-1.rds.amazonaws.com"
+      SOCIAL_MEDIA_DB_PORT: "3306"
+      SOCIAL_MEDIA_DB_USER: "afshal"
+      SOCIAL_MEDIA_DB_PASSWORD: "afshal123."
+    depends_on:
+      - dbservice
+    ports:
+      - "8081:8081"
+    networks:
+      - bootapp
+networks:
+  bootapp:
+
+
+
