@@ -1,9 +1,7 @@
 package com.example.social.mapper;
 
 import com.example.social.dto.UserDto;
-import com.example.social.dto.UserPosts;
 import com.example.social.entities.User;
-import com.example.social.utils.ImageProcessor;
 import jakarta.persistence.Tuple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +44,26 @@ public class UserMapper {
         userDto.setPhoneNo(user.getPhoneNo());
         userDto.setFriendsCount(tuple.get(0, Long.class));
         return userDto;
+    }
+
+    public UserDto mapToUserData(User user){
+
+        if(user == null)
+        {
+            return null;
+        }
+        else
+        {
+            UserDto userDto = new UserDto();
+
+            userDto.setProfilePic(user.getProfilePic());
+            userDto.setBackgroundImage(user.getBackgroundImage());
+            userDto.setPassword(user.getPassword());
+            userDto.setName(user.getName());
+            userDto.setEmail(user.getEmail());
+            userDto.setCountry(user.getCountry());
+            userDto.setPhoneNo(user.getPhoneNo());
+            return userDto;
+        }
     }
 }

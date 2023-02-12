@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class UserClient implements UserService {
@@ -78,5 +79,10 @@ public class UserClient implements UserService {
             user.setBackgroundImage(ImageProcessor.uploadImage(backgroundImage));
         }
         repo.save(user);
+    }
+
+    @Override
+    public List<UserDto> getUserDetails(List<String> recommendedUsers) {
+        return recommendedUsers.stream().map(user -> mapper.mapToUserData(repo.findByName(user))).toList();
     }
 }

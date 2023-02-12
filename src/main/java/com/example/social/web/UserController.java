@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-
+import java.util.List;
 
 
 @CrossOrigin
@@ -42,5 +42,10 @@ public class UserController {
         UserDto userDto = objectMapper.readValue(requestBody, UserDto.class);
         service.updateUser(userDto,file,backgroundImage);
         return "Updated Successfully";
+    }
+
+    @PostMapping("/list/get")
+    public List<UserDto> getUsersForRecommendation(@RequestBody List<String> recommendedUsers){
+        return service.getUserDetails(recommendedUsers);
     }
 }
