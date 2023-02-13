@@ -41,7 +41,7 @@ public class PostController {
 
 
     @GetMapping("/get/{email}")
-    public List<PostData> getPosts(@PathVariable("email")String email) throws ExecutionException, InterruptedException {
+    public List<PostData> getPostsOfUserWithFriends(@PathVariable("email")String email) throws ExecutionException, InterruptedException {
         return postService.getPosts(email);
     }
 }

@@ -30,7 +30,7 @@ public class UserController {
 //    }
 //
     @GetMapping("/get/{byUser}/{email}")
-    public UserDto getUser(@PathVariable("byUser")String byUser,@PathVariable("email")String email){
+    public UserDto getUserForProfile(@PathVariable("byUser")String byUser,@PathVariable("email")String email){
         return service.getUserDetails(byUser,email);
     }
 
