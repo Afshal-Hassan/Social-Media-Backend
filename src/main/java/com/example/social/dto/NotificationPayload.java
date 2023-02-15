@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NotificationPayload {
 
-    private String friendRequestSender;
-    private String message;
-    private String roomId;
+    private int id;
+    private String notificationSenderName;
+    private String notification;
+    private String notificationSenderProfilePic;
+    private String notificationStatus;
     private String friendRequestReceiver;
+    private String roomId;
 }

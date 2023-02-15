@@ -31,6 +31,7 @@ public class NotificationMapper {
             notificationData.setNotificationReceiverName(notification.get(5, String.class));
             notificationData.setNotificationReceiverEmail(notification.get(6, String.class));
             notificationData.setNotificationReceiverProfilePic(notification.get(7, String.class));
+            notificationData.setNotificationStatus(notification.get(8,String.class));
 
             notificationDataList.add(notificationData);
         }

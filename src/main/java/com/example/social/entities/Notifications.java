@@ -24,6 +24,9 @@ public class Notifications {
     @Column(name = "notifications")
     private String notifications;
 
+    @Column(name = "notificationStatus")
+    private String notificationStatus;
+
     @ManyToOne()
     @JoinColumn(name = "notification_sender" , referencedColumnName = "user_id")
     private User notificationSender;

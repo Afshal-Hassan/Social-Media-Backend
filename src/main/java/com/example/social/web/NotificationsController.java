@@ -27,8 +27,15 @@ public class NotificationsController {
 
     @MessageMapping("/send-notification")
     public void sendNotificationToUser(@Payload NotificationPayload notificationPayload) {
-        messagingTemplate.convertAndSendToUser(notificationPayload.getRoomId(),"/private", notificationPayload);
+        messagingTemplate.convertAndSendToUser(notificationPayload.getRoomId(),"/send/private", notificationPayload);
     }
+
+    @MessageMapping("/receive-notification")
+    public void receiveNotificationToUser(@Payload NotificationPayload notificationPayload) {
+        messagingTemplate.convertAndSendToUser(notificationPayload.getRoomId(),"/receive/private", notificationPayload);
+    }
+
+
 
     @GetMapping("/notifications/get/{email}")
     public List<NotificationData> getNotificationsOfUser(@PathVariable("email")String userEmail) {

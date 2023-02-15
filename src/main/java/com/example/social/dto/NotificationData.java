@@ -34,4 +34,7 @@ public class NotificationData {
 
     @JsonProperty("notificationReceiverProfilePic")
     private String notificationReceiverProfilePic;
+
+    @JsonProperty("notificationStatus")
+    private String notificationStatus;
 }
