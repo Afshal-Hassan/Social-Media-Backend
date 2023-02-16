@@ -1,5 +1,6 @@
 package com.example.social.mapper;
 import com.example.social.dto.FriendsData;
+import com.example.social.services.friend.FriendService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,9 @@ public class FriendMapper {
     @Autowired
     private ModelMapper mapper;
 
+    @Autowired
+    private FriendService friendService;
+
     public List<FriendsData> mapToFriendsData(List<Tuple> friends) {
         List<FriendsData> friendsDataList = new ArrayList<>();
 
@@ -28,7 +32,10 @@ public class FriendMapper {
             friendsData.setPhoneNo(friends.get(index).get(4, String.class));
             friendsData.setProfilePic(friends.get(index).get(5, String.class));
             friendsData.setBackgroundImage(friends.get(index).get(6, String.class));
-
+            friendsData.setFriend(true);
+            friendsData.setFriendsCount(friendService.getCountsOfFriendOfUser(
+                    friends.get(index).get(2, String.class)
+            ));
             friendsDataList.add(friendsData);
         }
         return friendsDataList;

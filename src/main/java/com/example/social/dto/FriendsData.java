@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.persistence.Tuple;
+
 
 @Data
 @NoArgsConstructor
@@ -32,9 +34,20 @@ public class FriendsData {
     @JsonProperty("isFriend")
     private boolean isFriend;
 
+    @JsonProperty("friendsCount")
+    private Long friendsCount;
+
     @JsonProperty("profilePic")
     private String profilePic;
 
     @JsonProperty("backgroundImage")
     private String backgroundImage;
+
+    public Long getFriendsCount() {
+        return friendsCount;
+    }
+
+    public void setFriendsCount(Tuple friendsCount) {
+        this.friendsCount = friendsCount.get(0, Long.class);
+    }
 }
