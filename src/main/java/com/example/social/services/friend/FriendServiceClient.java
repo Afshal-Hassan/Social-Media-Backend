@@ -38,6 +38,7 @@ public class FriendServiceClient implements FriendService {
         return tuple != null;
     }
 
+    @Override
     public List<FriendsData> getFriendsDataOfUser(String email) {
         return mapper.mapToFriendsData(repo.findFriendsDataByUserEmail(email));
     }

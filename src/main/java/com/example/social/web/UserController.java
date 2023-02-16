@@ -44,8 +44,8 @@ public class UserController {
         return "Updated Successfully";
     }
 
-    @PostMapping("/list/get")
-    public List<UserDto> getUsersForRecommendation(@RequestBody List<String> recommendedUsers){
-        return service.getUserDetailsForRecommendation(recommendedUsers);
+    @PostMapping("/list/get/{email}")
+    public List<List<UserDto>> getUsersForRecommendation(@PathVariable("email")String email,@RequestBody List<String> recommendedUsers){
+        return service.getUserDetailsForRecommendation(email,recommendedUsers);
     }
 }

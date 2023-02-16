@@ -82,7 +82,7 @@ public class UserClient implements UserService {
     }
 
     @Override
-    public List<UserDto> getUserDetailsForRecommendation(List<String> recommendedUsers) {
-        return recommendedUsers.stream().map(user -> mapper.mapToUserData(repo.findByName(user))).toList();
+    public List<List<UserDto>> getUserDetailsForRecommendation(String email,List<String> recommendedUsers) {
+        return recommendedUsers.stream().map(user -> mapper.mapToUserData(email,repo.findByName(user))).toList();
     }
 }

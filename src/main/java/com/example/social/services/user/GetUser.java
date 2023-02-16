@@ -11,5 +11,5 @@ public interface GetUser {
 
     UserDto getUserDetails(String byUser,String email);
 
-    List<UserDto> getUserDetailsForRecommendation(List<String> name);
+    List<List<UserDto>> getUserDetailsForRecommendation(String email,List<String> name);
 }
