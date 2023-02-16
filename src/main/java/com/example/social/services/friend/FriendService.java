@@ -1,5 +1,5 @@
 package com.example.social.services.friend;
 
 
-public interface FriendService extends GetFriend {
+public interface FriendService extends GetFriend,SaveFriend {
 }

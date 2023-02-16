@@ -34,6 +34,9 @@ public class UserDto {
     @JsonProperty("isFriend")
     private boolean isFriend;
 
+    @JsonProperty("friendRequestStatus")
+    private String friendRequestStatus;
+
     @JsonProperty("profilePic")
     private String profilePic;
 

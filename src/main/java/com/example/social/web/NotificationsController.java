@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +37,15 @@ public class NotificationsController {
     @GetMapping("/notifications/get/{email}")
     public List<NotificationData> getNotificationsOfUser(@PathVariable("email")String userEmail) {
         return service.getNotificationsOfUser(userEmail);
+    }
+
+    @PostMapping("/notifications/save")
+    public String saveNotification(@RequestBody NotificationPayload notificationPayload) {
+        return service.saveNotification(notificationPayload);
+    }
+    @PutMapping("/notifications/update/{senderEmail}/{receiverEmail}")
+    public String updateNotification(@PathVariable("senderEmail")String senderEmail,@PathVariable("receiverEmail")String receiverEmail,
+                                     @RequestBody NotificationPayload notificationPayload) {
+        return service.updateNotification(senderEmail,receiverEmail,notificationPayload);
     }
 }

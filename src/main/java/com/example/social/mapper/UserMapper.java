@@ -3,6 +3,7 @@ package com.example.social.mapper;
 import com.example.social.dto.UserDto;
 import com.example.social.entities.User;
 import com.example.social.services.friend.FriendService;
+import com.example.social.services.notification.NotificationService;
 import jakarta.persistence.Tuple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UserMapper {
 
     @Autowired
     private FriendService friendService;
+
+    @Autowired
+    private NotificationService notificationService;
 
 
     public User mapToEntity(UserDto userDto){
@@ -74,6 +78,9 @@ public class UserMapper {
                 userDto.setCountry(users.get(index).getCountry());
                 userDto.setPhoneNo(users.get(index).getPhoneNo());
                 userDto.setFriend(friendService.isFriendOfUser(email, userDto.getEmail()));
+                userDto.setFriendRequestStatus(notificationService.findNotificationStatusOfUser(email,userDto.getEmail()));
+                Tuple countsOfFriendOfUser = friendService.getCountsOfFriendOfUser(userDto.getEmail());
+                userDto.setFriendsCount(countsOfFriendOfUser.get(0, Long.class));
 
                 userDtoList.add(userDto);
             }

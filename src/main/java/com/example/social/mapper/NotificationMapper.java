@@ -2,13 +2,15 @@ package com.example.social.mapper;
 
 import com.example.social.dto.NotificationData;
 
+import com.example.social.dto.NotificationPayload;
+import com.example.social.entities.Notifications;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import jakarta.persistence.Tuple;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Component
 public class NotificationMapper {
@@ -36,5 +38,13 @@ public class NotificationMapper {
             notificationDataList.add(notificationData);
         }
         return notificationDataList;
+    }
+
+    public Notifications mapToEntity(NotificationPayload notificationPayload) {
+            Notifications notifications = new Notifications();
+
+            notifications.setNotifications(notificationPayload.getNotification());
+            notifications.setNotificationStatus(notificationPayload.getNotificationStatus());
+            return notifications;
     }
 }

@@ -14,6 +14,7 @@ public class NotificationPayload {
     private int id;
     private String notificationSenderName;
     private String notification;
+    private String notificationSenderEmail;
     private String notificationSenderProfilePic;
     private String notificationStatus;
     private String friendRequestReceiver;

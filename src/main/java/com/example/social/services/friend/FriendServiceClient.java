@@ -2,6 +2,7 @@ package com.example.social.services.friend;
 
 import com.example.social.dto.FriendsData;
 import com.example.social.entities.Friends;
+import com.example.social.entities.User;
 import com.example.social.mapper.FriendMapper;
 import com.example.social.repo.FriendRepo;
 import jakarta.persistence.Tuple;
@@ -41,5 +42,17 @@ public class FriendServiceClient implements FriendService {
     @Override
     public List<FriendsData> getFriendsDataOfUser(String email) {
         return mapper.mapToFriendsData(repo.findFriendsDataByUserEmail(email));
+    }
+
+    @Override
+    public void saveFriends(User user1, User user2) {
+        Friends friendshipForUser1 = new Friends();
+        Friends friendshipForUser2 = new Friends();
+        friendshipForUser1.setUser(user1);
+        friendshipForUser1.setUserFriends(user2);
+        friendshipForUser2.setUser(user2);
+        friendshipForUser2.setUserFriends(user1);
+        repo.save(friendshipForUser1);
+        repo.save(friendshipForUser2);
     }
 }

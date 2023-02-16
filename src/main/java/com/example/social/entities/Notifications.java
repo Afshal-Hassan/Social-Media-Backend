@@ -21,7 +21,7 @@ public class Notifications {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "notifications")
+    @Column(name = "notification")
     private String notifications;
 
     @Column(name = "notificationStatus")
