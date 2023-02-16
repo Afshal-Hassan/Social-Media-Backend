@@ -1,5 +1,6 @@
 package com.example.social.services.friend;
 
+import com.example.social.dto.FriendsData;
 import com.example.social.entities.Friends;
 import jakarta.persistence.Tuple;
 
@@ -12,4 +13,6 @@ public interface GetFriend {
     Tuple getCountsOfFriendOfUser(String email);
 
     boolean isFriendOfUser(String byUser,String onUser);
+
+    List<FriendsData> getFriendsDataOfUser(String email);
 }

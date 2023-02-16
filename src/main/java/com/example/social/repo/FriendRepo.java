@@ -19,4 +19,7 @@ public interface FriendRepo extends JpaRepository<Friends,Integer> {
 
     @Query(value = "select f.friend_id from friends f inner join user u on f.user_id = u.user_id where f.user_id = (select u.user_id from user u where u.email =:byUserEmail) and f.user_friend_id = (select u.user_id from user u where u.email =:onUserEmail) ",nativeQuery = true)
     Tuple findFriendOfUser(@Param("byUserEmail")String byUser,@Param("onUserEmail")String onUser);
+
+    @Query(value = "SELECT usf.user_id, usf.name, usf.email, usf.country, usf.phone_no, usf.profile_pic, usf.background_image FROM friends f inner join user u on f.user_id = u.user_id inner join user usf on f.user_friend_id =usf.user_id where u.email=:email ",nativeQuery = true)
+    List<Tuple> findFriendsDataByUserEmail(@Param("email")String email);
 }

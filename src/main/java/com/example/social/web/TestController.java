@@ -1,13 +1,17 @@
 package com.example.social.web;
 
+import com.example.social.dto.AuthRequestBody;
+import com.example.social.dto.GoogleResponse;
+import com.example.social.dto.TestData;
 import com.example.social.entities.Friends;
 import com.example.social.repo.FriendRepo;
 import com.example.social.repo.PostRepository;
+import com.example.social.services.auth.AuthService;
 import com.example.social.utils.ImageProcessor;
+import com.example.social.utils.JwtUtil;
 import com.example.social.utils.VideoProcessor;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -34,6 +38,13 @@ public class TestController {
 
     @Autowired
     private VideoProcessor videoProcessor;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+
+    @Autowired
+    private AuthService authService;
 
     @GetMapping("/test")
     public String test(){
@@ -79,6 +90,18 @@ public class TestController {
     public byte[] test3() throws IOException {
         byte[] video = Files.readAllBytes(new File("C:/social/videos/d7359f86-113d-4988-8e04-12d17ba94db4.mp4").toPath());
         return video;
+    }
+
+    @PostMapping("/token")
+    public String test4( @RequestBody AuthRequestBody authRequestBody) {
+        GoogleResponse googleResponse = authService.verifyTokenOfGoogleSSO(authRequestBody);
+        return authService.generateJwtToken(authService.setUserDetails(googleResponse),googleResponse.getEmail());
+    }
+
+    @PostMapping("/token/test")
+    private void test5(@RequestBody TestData testData){
+        String username = authService.getUserEmailFromToken(testData.getToken());
+        System.out.println(username);
     }
 
 }
