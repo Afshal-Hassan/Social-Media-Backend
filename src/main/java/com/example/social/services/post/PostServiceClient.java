@@ -2,6 +2,7 @@ package com.example.social.services.post;
 
 import com.example.social.cache.CacheProcessor;
 import com.example.social.dto.PostData;
+import com.example.social.dto.PostLikes;
 import com.example.social.dto.PostsOfUserWithFriends;
 import com.example.social.entities.Friends;
 import com.example.social.entities.Post;
@@ -120,6 +121,15 @@ public class PostServiceClient implements PostService{
         });
 
         return postDataList;
+    }
+
+
+    @Override
+    public String updateLikes(PostLikes postLikes, Integer postId) {
+        Post post = repo.findByPostId(postId);
+        post.setLikes(postLikes.getLikes());
+        repo.save(post);
+        return "Likes updated successfully";
     }
 }
 

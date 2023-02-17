@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PostData {
 
+    @JsonProperty("postId")
+    private int postId;
+
     @JsonProperty("postDescription")
     private String description;
 
@@ -38,4 +41,6 @@ public class PostData {
 
     @JsonProperty("userEmail")
     private String userEmail;
+
+
 }

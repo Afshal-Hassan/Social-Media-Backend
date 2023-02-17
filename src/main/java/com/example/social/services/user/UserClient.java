@@ -85,4 +85,10 @@ public class UserClient implements UserService {
     public List<List<UserDto>> getUserDetailsForRecommendation(String byUser,List<String> recommendedUsers) {
         return recommendedUsers.stream().map(user -> mapper.mapToUserData(byUser,repo.findByName(user))).toList();
     }
+
+    @Override
+    public void saveUser(UserDto userDto) {
+        User user = mapper.mapToEntity(userDto);
+        repo.save(user);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.social.web;
 
 import com.example.social.dto.PostData;
+import com.example.social.dto.PostLikes;
 import com.example.social.dto.PostsOfUserWithFriends;
 import com.example.social.services.post.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,5 +44,10 @@ public class PostController {
     @GetMapping("/get/{email}")
     public List<PostData> getPostsOfUserWithFriends(@PathVariable("email")String email) throws ExecutionException, InterruptedException {
         return postService.getPosts(email);
+    }
+
+    @PutMapping("/update/likes/{postId}")
+    public String updateLikes(@PathVariable("postId")Integer postId,@RequestBody PostLikes postLikes) {
+        return postService.updateLikes(postLikes,postId);
     }
 }

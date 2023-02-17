@@ -15,4 +15,6 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
 
     @Query(value = "select post_image from posts where post_id = 9",nativeQuery = true)
     byte[] findImage();
+
+    Post findByPostId(Integer id);
 }
