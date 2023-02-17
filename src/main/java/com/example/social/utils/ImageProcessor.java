@@ -15,7 +15,7 @@ import java.util.zip.Inflater;
 @Component
 public class ImageProcessor {
 
-    private static final String IMAGE_DIRECTORY_PATH = "/home/ubuntu/project/images";
+    private static final String IMAGE_DIRECTORY_PATH = "C:/social/images";
 
 
     public static byte[] compressImage(byte[] data) {

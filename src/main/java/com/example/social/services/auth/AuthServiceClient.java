@@ -4,9 +4,9 @@ package com.example.social.services.auth;
 import com.example.social.clients.google.GoogleClient;
 import com.example.social.dto.AuthRequestBody;
 import com.example.social.dto.GoogleResponse;
-import com.example.social.dto.UserDto;
 import com.example.social.entities.User;
 import com.example.social.repo.UserRepo;
+import com.example.social.services.privateroom.PrivateRoomService;
 import com.example.social.services.user.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -27,25 +27,31 @@ public class AuthServiceClient implements AuthService{
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PrivateRoomService privateRoomService;
+
     @Value("${JWT_TOKEN_SECRET}")
     private String SECRET_KEY;
 
 
 
     public GoogleResponse verifyTokenOfGoogleSSO(AuthRequestBody authRequestBody){
-        GoogleResponse googleResponse = googleClient.verifyTokenFromGoogle(authRequestBody);
-        User user = userService.getUserByEmail(googleResponse.getEmail());
-        if(user != null){
-            UserDto userDto = new UserDto();
-            userDto.setEmail(googleResponse.getEmail());
-            userService.saveUser(userDto);
-        }
-        return googleResponse;
+        return googleClient.verifyTokenFromGoogle(authRequestBody);
     }
 
     public void extractUsernameVerifiedUser(GoogleResponse googleResponse) {
         User user = userService.getUserByEmail(googleResponse.getEmail());
-        googleResponse.setUsername(user.getName());
+        if(user == null ) {
+            User newUser = new User();
+            googleResponse.setUserExists(false);
+            newUser.setEmail(googleResponse.getEmail());
+            userService.saveUser(newUser);
+            privateRoomService.savePrivateRoomKeyOfUser(userService.getAllUsers(),googleResponse.getEmail());
+        }
+        else
+        {
+            googleResponse.setUserExists(true);
+        }
     }
 
     public HashMap<String,Object> setUserDetails(GoogleResponse googleResponse){

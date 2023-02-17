@@ -1,6 +1,7 @@
 package com.example.social.web;
 
 import com.example.social.dto.UserDto;
+import com.example.social.entities.User;
 import com.example.social.services.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class UserController {
 
 
     @PutMapping("/update")
-    public String updateUser(@RequestParam("user")String requestBody, @RequestParam("image")MultipartFile file,
-                             @RequestParam("backgroundImage")MultipartFile backgroundImage) throws IOException {
+    public String updateUser(@RequestParam("user")String requestBody, @RequestParam(value = "image", required = false)MultipartFile file,
+                             @RequestParam(value = "backgroundImage",required = false)MultipartFile backgroundImage) throws IOException {
 
         UserDto userDto = objectMapper.readValue(requestBody, UserDto.class);
         service.updateUser(userDto,file,backgroundImage);
@@ -47,5 +48,18 @@ public class UserController {
     @PostMapping("/list/get/{email}")
     public List<List<UserDto>> getUsersForRecommendation(@PathVariable("email")String byUser,@RequestBody List<String> recommendedUsers){
         return service.getUserDetailsForRecommendation(byUser,recommendedUsers);
+    }
+
+    @GetMapping("/check/{email}")
+    public boolean checkUserExists(@PathVariable("email")String email) {
+        User user = service.getUserByEmail(email);
+        if(user !=null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

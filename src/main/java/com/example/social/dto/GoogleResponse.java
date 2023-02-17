@@ -23,4 +23,7 @@ public class GoogleResponse {
 
     @JsonProperty("username")
     private String username;
+
+    @JsonProperty("isUserExists")
+    private boolean isUserExists;
 }

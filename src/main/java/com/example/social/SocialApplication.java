@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableAsync
-@EnableCaching
+//@EnableCaching
 public class SocialApplication {
 
     public static void main(String[] args) {

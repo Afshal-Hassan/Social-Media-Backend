@@ -4,15 +4,15 @@ import com.example.social.dto.PostData;
 import com.example.social.dto.PostsOfUserWithFriends;
 import com.example.social.dto.UserPosts;
 import com.example.social.entities.Post;
-import com.example.social.utils.ImageProcessor;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+
 
 
 @Component
@@ -33,9 +33,9 @@ public class PostMapper {
         post.setHearts(postData.getHearts());
         return post;
     }
-    @Async(value = "asyncExecutor")
-    public CompletableFuture<List<PostData>> mapToPostDataList(List<Post> posts) {
-        return CompletableFuture.completedFuture(posts.stream().map(post -> mapper.map(post,PostData.class)).toList());
+
+    public List<PostData> mapToPostDataList(List<Post> posts) {
+        return posts.stream().map(post -> mapper.map(post,PostData.class)).toList();
     }
 
     public UserPosts mapToUserPosts(List<PostData> postData){

@@ -35,10 +35,10 @@ public class PostController {
     }
 
 
-    @GetMapping("/get/of-user/{email}")
-    public PostsOfUserWithFriends getPostsOfUser(@PathVariable("email")String email) throws ExecutionException, InterruptedException {
-        return postService.getPostsOfUser(email);
-    }
+//    @GetMapping("/get/of-user/{email}")
+//    public PostsOfUserWithFriends getPostsOfUser(@PathVariable("email")String email) throws ExecutionException, InterruptedException {
+//        return postService.getPostsOfUser(email);
+//    }
 
 
     @GetMapping("/get/{email}")

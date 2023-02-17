@@ -21,6 +21,6 @@ public class AuthController {
     public AuthResponseBody validateOAuthTokenAndGenerateJwtToken(@Valid @RequestBody AuthRequestBody authRequestBody) {
         GoogleResponse googleResponse = authService.verifyTokenOfGoogleSSO(authRequestBody);
         authService.extractUsernameVerifiedUser(googleResponse);
-        return new AuthResponseBody(googleResponse.getEmail(), googleResponse.getUsername(), authService.generateJwtToken(authService.setUserDetails(googleResponse),googleResponse.getEmail()));
+        return new AuthResponseBody(googleResponse.getEmail(), googleResponse.getUsername(), authService.generateJwtToken(authService.setUserDetails(googleResponse),googleResponse.getEmail()), googleResponse.isUserExists());
     }
 }

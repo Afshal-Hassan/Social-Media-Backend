@@ -9,22 +9,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class CacheProcessor {
 
-    @Autowired
-    private CacheManager cacheManager;
-
-
-    public void refreshAllCache() {
-
-        for(String name : cacheManager.getCacheNames())
-        {
-            if( cacheManager.getCache(name) != null)
-            {
-                cacheManager.getCache(name).clear();
-            }
-            else
-            {
-                throw new NullPointerException("Cache is null");
-            }
-        }
-    }
+//    @Autowired
+//    private CacheManager cacheManager;
+//
+//
+//    public void refreshAllCache() {
+//
+//        for(String name : cacheManager.getCacheNames())
+//        {
+//            if( cacheManager.getCache(name) != null)
+//            {
+//                cacheManager.getCache(name).clear();
+//            }
+//            else
+//            {
+//                throw new NullPointerException("Cache is null");
+//            }
+//        }
+//    }
 }

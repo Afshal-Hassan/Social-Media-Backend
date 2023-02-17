@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 public interface GetFriend {
 
-    CompletableFuture<List<Friends>> getFriendsOfUser(String userEmail);
+    List<Friends> getFriendsOfUser(String userEmail);
     Tuple getCountsOfFriendOfUser(String email);
 
     boolean isFriendOfUser(String byUser,String onUser);

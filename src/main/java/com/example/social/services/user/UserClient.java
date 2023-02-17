@@ -69,14 +69,21 @@ public class UserClient implements UserService {
     public void updateUser(UserDto userDto, MultipartFile file,MultipartFile backgroundImage) throws IOException {
         User getUser = repo.findUserByEmail(userDto.getEmail());
         User user = mapper.mapToEntityForUpdate(userDto,getUser);
-        if(!file.isEmpty())
+        if(file != null)
         {
-            user.setProfilePic(ImageProcessor.uploadImage(file));
+            if(!file.isEmpty())
+            {
+                user.setProfilePic(ImageProcessor.uploadImage(file));
+
+            }
         }
 
-        if(!backgroundImage.isEmpty())
+        if(backgroundImage != null)
         {
-            user.setBackgroundImage(ImageProcessor.uploadImage(backgroundImage));
+            if(!backgroundImage.isEmpty())
+            {
+                user.setBackgroundImage(ImageProcessor.uploadImage(backgroundImage));
+            }
         }
         repo.save(user);
     }
@@ -87,8 +94,12 @@ public class UserClient implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
-        User user = mapper.mapToEntity(userDto);
+    public void saveUser(User user) {
         repo.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return repo.findAll();
     }
 }

@@ -37,7 +37,6 @@ public class UserMapper {
 
     public User mapToEntityForUpdate(UserDto userDto,User user){
         user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setCountry(userDto.getCountry());
         user.setPhoneNo(userDto.getPhoneNo());
@@ -69,7 +68,7 @@ public class UserMapper {
             for (var index = 0; index < users.size(); index++){
 
                 UserDto userDto = new UserDto();
-
+                userDto.setId(users.get(index).getUserId());
                 userDto.setProfilePic(users.get(index).getProfilePic());
                 userDto.setBackgroundImage(users.get(index).getBackgroundImage());
                 userDto.setPassword(users.get(index).getPassword());

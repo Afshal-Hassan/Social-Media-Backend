@@ -7,11 +7,11 @@ import com.example.social.mapper.FriendMapper;
 import com.example.social.repo.FriendRepo;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+
 
 @Service
 public class FriendServiceClient implements FriendService {
@@ -22,10 +22,9 @@ public class FriendServiceClient implements FriendService {
     @Autowired
     private FriendMapper mapper;
 
-    @Async(value = "asyncExecutor")
     @Override
-    public CompletableFuture<List<Friends>> getFriendsOfUser(String userEmail) {
-        return CompletableFuture.completedFuture(repo.findByUserEmail(userEmail));
+    public List<Friends> getFriendsOfUser(String userEmail) {
+        return repo.findByUserEmail(userEmail);
     }
 
     @Override

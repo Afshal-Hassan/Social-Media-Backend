@@ -18,4 +18,7 @@ public class AuthResponseBody {
 
     @JsonProperty("token")
     private String token;
+
+    @JsonProperty("isUserExists")
+    private boolean isUserExists;
 }

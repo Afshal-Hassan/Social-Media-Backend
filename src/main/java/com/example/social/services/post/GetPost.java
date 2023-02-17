@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface GetPost {
 
-    PostsOfUserWithFriends getPostsOfUser(String email) throws ExecutionException, InterruptedException;
+//    PostsOfUserWithFriends getPostsOfUser(String email) throws ExecutionException, InterruptedException;
 
-    List<PostData> getPosts(String email) throws ExecutionException, InterruptedException;
+    List<PostData> getPosts(String email);
 }

@@ -1,15 +1,12 @@
 package com.example.social.services.post;
 
-import com.example.social.cache.CacheProcessor;
 import com.example.social.dto.PostData;
 import com.example.social.dto.PostLikes;
-import com.example.social.dto.PostsOfUserWithFriends;
 import com.example.social.entities.Friends;
 import com.example.social.entities.Post;
 import com.example.social.entities.User;
 import com.example.social.mapper.PostMapper;
 import com.example.social.repo.PostRepository;
-
 import com.example.social.services.friend.FriendService;
 import com.example.social.services.user.UserService;
 import com.example.social.utils.ImageProcessor;
@@ -17,14 +14,11 @@ import com.example.social.utils.VideoProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 
@@ -48,8 +42,6 @@ public class PostServiceClient implements PostService{
 
     @Autowired
     private VideoProcessor videoProcessor;
-    @Autowired
-    private CacheProcessor cacheProcessor;
 
 
     @Override
@@ -77,49 +69,41 @@ public class PostServiceClient implements PostService{
             post.setImage(ImageProcessor.uploadImage(file));
         }
         repo.save(post);
-        cacheProcessor.refreshAllCache();
     }
 
 
 
+//    @Override
+//    public PostsOfUserWithFriends getPostsOfUser(String email) throws ExecutionException, InterruptedException {
+//        List<List<PostData>> friendsPosts = new ArrayList<>();
+//
+//        CompletableFuture<List<Friends>> friends = friendService.getFriendsOfUser(email);
+//        CompletableFuture<List<PostData>> userPosts = mapper.mapToPostDataList(repo.findPostsByUserEmail(friends.get().isEmpty() ? null : friends.get().get(0).getUser().getEmail()));
+//
+//        friends.thenApply(friendsData ->{
+//            for (Friends friend : friendsData) {
+//                CompletableFuture<List<PostData>> friendPostFuture = mapper.mapToPostDataList(repo.findPostsByUserEmail(friend.getUserFriends().getEmail()));
+//                friendPostFuture.thenAccept(friendsPosts::add);
+//            }
+//            return friendsPosts;
+//        });
+//        return mapper.mapToPostUserWithFriends(userPosts.get(),friendsPosts);
+//    }
+
+
+
     @Override
-    @Cacheable(cacheNames = "posts" , key = "#email")
-    public PostsOfUserWithFriends getPostsOfUser(String email) throws ExecutionException, InterruptedException {
-        List<List<PostData>> friendsPosts = new ArrayList<>();
+    public List<PostData> getPosts(String email) {
 
-        CompletableFuture<List<Friends>> friends = friendService.getFriendsOfUser(email);
-        CompletableFuture<List<PostData>> userPosts = mapper.mapToPostDataList(repo.findPostsByUserEmail(friends.get().isEmpty() ? null : friends.get().get(0).getUser().getEmail()));
+        List<Friends> friends = friendService.getFriendsOfUser(email);
+        List<PostData> userPosts = mapper.mapToPostDataList(repo.findPostsByUserEmail(email));
 
-        friends.thenApply(friendsData ->{
-            for (Friends friend : friendsData) {
-                CompletableFuture<List<PostData>> friendPostFuture = mapper.mapToPostDataList(repo.findPostsByUserEmail(friend.getUserFriends().getEmail()));
-                friendPostFuture.thenAccept(friendsPosts::add);
+        List<PostData> postDataList = new ArrayList<>(userPosts);
+
+           for(int i=0; i < friends.size(); i++){
+               List<PostData> friendPostFuture = mapper.mapToPostDataList(repo.findPostsByUserEmail(friends.get(i).getUserFriends().getEmail()));
+               postDataList.addAll(friendPostFuture);
             }
-            return friendsPosts;
-        });
-        return mapper.mapToPostUserWithFriends(userPosts.get(),friendsPosts);
-    }
-
-
-
-    @Override
-    @Cacheable(cacheNames = "posts" , key = "#email")
-    public List<PostData> getPosts(String email) throws ExecutionException, InterruptedException {
-        List<PostData> postDataList = new ArrayList<>();
-
-        CompletableFuture<List<Friends>> friends = friendService.getFriendsOfUser(email);
-        CompletableFuture<List<PostData>> userPosts = mapper.mapToPostDataList(repo.findPostsByUserEmail(friends.get().isEmpty() ? null : friends.get().get(0).getUser().getEmail()));
-        userPosts.thenAccept(postDataList::addAll);
-
-
-        friends.thenApply(friendsData -> {
-           for(int i=0; i < friendsData.size() + 1; i++){
-                CompletableFuture<List<PostData>> friendPostFuture = mapper.mapToPostDataList(repo.findPostsByUserEmail(friendsData.get(i).getUserFriends().getEmail()));
-               friendPostFuture.thenAccept(postDataList::addAll);
-            }
-           return postDataList;
-        });
-
         return postDataList;
     }
 
