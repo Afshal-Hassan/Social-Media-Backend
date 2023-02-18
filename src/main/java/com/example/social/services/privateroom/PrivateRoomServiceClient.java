@@ -5,14 +5,13 @@ import com.example.social.dto.PrivateRoomsData;
 import com.example.social.entities.PrivateRooms;
 import com.example.social.entities.User;
 import com.example.social.mapper.PrivateRoomMapper;
-import com.example.social.repo.PrivateRoomRepo;
+import com.example.social.repo.sm_repos.PrivateRoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 
 @Service

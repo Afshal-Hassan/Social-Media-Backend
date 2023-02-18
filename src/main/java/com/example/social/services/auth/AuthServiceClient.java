@@ -5,7 +5,6 @@ import com.example.social.clients.google.GoogleClient;
 import com.example.social.dto.AuthRequestBody;
 import com.example.social.dto.GoogleResponse;
 import com.example.social.entities.User;
-import com.example.social.repo.UserRepo;
 import com.example.social.services.privateroom.PrivateRoomService;
 import com.example.social.services.user.UserService;
 import io.jsonwebtoken.Claims;

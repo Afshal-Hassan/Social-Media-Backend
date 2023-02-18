@@ -3,7 +3,7 @@ package com.example.social.services.user;
 import com.example.social.dto.UserDto;
 import com.example.social.entities.User;
 import com.example.social.mapper.UserMapper;
-import com.example.social.repo.UserRepo;
+import com.example.social.repo.sm_repos.UserRepo;
 import com.example.social.services.friend.FriendService;
 import com.example.social.utils.ImageProcessor;
 import jakarta.persistence.Tuple;

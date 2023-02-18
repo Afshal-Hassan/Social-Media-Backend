@@ -5,7 +5,7 @@ import com.example.social.dto.NotificationPayload;
 import com.example.social.entities.Notifications;
 import com.example.social.entities.User;
 import com.example.social.mapper.NotificationMapper;
-import com.example.social.repo.NotificationsRepo;
+import com.example.social.repo.sm_repos.NotificationsRepo;
 import com.example.social.services.friend.FriendService;
 import com.example.social.services.user.UserService;
 import jakarta.persistence.Tuple;

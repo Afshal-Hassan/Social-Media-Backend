@@ -6,7 +6,7 @@ import com.example.social.entities.Friends;
 import com.example.social.entities.Post;
 import com.example.social.entities.User;
 import com.example.social.mapper.PostMapper;
-import com.example.social.repo.PostRepository;
+import com.example.social.repo.sm_repos.PostRepository;
 import com.example.social.services.friend.FriendService;
 import com.example.social.services.user.UserService;
 import com.example.social.utils.ImageProcessor;
@@ -19,8 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 
 
 @Service

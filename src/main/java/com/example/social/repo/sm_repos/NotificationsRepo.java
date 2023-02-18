@@ -1,4 +1,4 @@
-package com.example.social.repo;
+package com.example.social.repo.sm_repos;
 
 import com.example.social.entities.Notifications;
 import org.springframework.data.jpa.repository.JpaRepository;

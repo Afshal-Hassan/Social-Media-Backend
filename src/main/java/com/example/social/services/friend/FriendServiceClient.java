@@ -4,7 +4,7 @@ import com.example.social.dto.FriendsData;
 import com.example.social.entities.Friends;
 import com.example.social.entities.User;
 import com.example.social.mapper.FriendMapper;
-import com.example.social.repo.FriendRepo;
+import com.example.social.repo.sm_repos.FriendRepo;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,4 +1,4 @@
-package com.example.social.repo;
+package com.example.social.repo.sm_repos;
 
 import com.example.social.entities.Friends;
 import jakarta.persistence.Tuple;
