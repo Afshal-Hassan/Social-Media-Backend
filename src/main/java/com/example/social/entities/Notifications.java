@@ -24,7 +24,7 @@ public class Notifications {
     @Column(name = "notification")
     private String notifications;
 
-    @Column(name = "notificationStatus")
+    @Column(name = "notification_status")
     private String notificationStatus;
 
     @ManyToOne()
